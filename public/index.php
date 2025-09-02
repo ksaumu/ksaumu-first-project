@@ -9,7 +9,9 @@ use App\Router;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+/* Запись НЕИЗМЕНЯЕМОГО объекта 'Dotenv' в $dotenv с указанной директорией где лежит '.env' */
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+/* Чтение файла .env по указанной директории и запись найденых значений в суперглобальный массив $_ENV и $_SERVER */
 $dotenv->load();
 
 define('STORAGE_PATH', __DIR__ . '/../storage');
@@ -19,6 +21,10 @@ $router = new Router();
 
 $router
     ->get('/', [HomeController::class, 'index']);
+
+//echo '<pre>';
+//var_dump($router->routes());
+//echo '</pre>';
 
 (new App(
     $router,
