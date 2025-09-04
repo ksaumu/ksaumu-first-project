@@ -19,15 +19,13 @@ define('VIEW_PATH', __DIR__ . '/../views');
 
 $router = new Router();
 
+/* Регистрация маршрутов */
 $router
     ->get('/', [HomeController::class, 'index']);
 
-//echo '<pre>';
-//var_dump($router->routes());
-//echo '</pre>';
-
-(new App(
+/* Создание и запуск приложения */
+new App(
     $router,
     ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
     new Config($_ENV)
-))->run();
+)->run();

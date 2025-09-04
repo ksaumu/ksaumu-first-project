@@ -7,12 +7,19 @@ namespace App;
 use PDO;
 
 /**
+ *  Класс-обертка для работы с базой данных через PDO.
+ *
  * @mixin PDO
  */
 class DB
 {
     private PDO $pdo;
 
+    /**
+     * Создает подключение к базе данных.
+     *
+     * @param array $config Массив с параметрами подключения.
+     */
     public function __construct(array $config)
     {
         $defaultOptions = [
@@ -32,7 +39,13 @@ class DB
         }
     }
 
-    public function __call(string $name, array $arguments)
+    /**
+     * Магический метод для вызова методов PDO.
+     *
+     * @param string $name Название метода
+     * @param array $arguments Аргументы метода
+     */
+    public function __call(string $name, array $arguments): mixed
     {
         return call_user_func_array([$this->pdo, $name], $arguments);
     }

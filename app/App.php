@@ -10,8 +10,18 @@ class App
 {
     private static DB $db;
 
-    public function __construct(protected Router $router, protected array $request, protected Config $config)
-    {
+    /**
+     * Конструктор приложения.
+     *
+     * @param Router $router Маршрутизатор для обработки запросов
+     * @param array $request Данные запроса
+     * @param Config $config Конфиг БД
+     */
+    public function __construct(
+        protected Router $router,
+        protected array $request,
+        protected Config $config
+    ) {
         static::$db = new DB($config->db ?? []);
     }
 
@@ -20,10 +30,16 @@ class App
         return static::$db;
     }
 
+    /**
+     * Запускает приложение, пытаясь разрешить маршрут.
+     */
     public function run()
     {
         try {
-            echo $this->router->resolve($this->request['uri'], strtolower($this->request['method']));
+            echo $this->router->resolve(
+                $this->request['uri'],
+                strtolower($this->request['method'])
+            );
         } catch (RouteNotFoundException) {
             http_response_code(404);
 
