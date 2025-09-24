@@ -7,6 +7,7 @@ use App\View;
 use App\Config;
 use App\Controllers\TransactionsController;
 use App\Controllers\HomeController;
+use App\Controllers\FileUploadController;
 use App\Router;
 use App\Exceptions\RouteNotFoundException;
 
@@ -26,7 +27,7 @@ try {
     /* Регистрация маршрутов */
     $router
         ->get('/', [HomeController::class, 'index'])
-        ->post('/upload', [HomeController::class, 'upload']);
+        ->post('/upload', [FileUploadController::class, 'upload']);
 
     /* Создание и запуск приложения */
     new App(
