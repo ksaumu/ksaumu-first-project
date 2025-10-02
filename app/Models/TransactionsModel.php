@@ -11,8 +11,8 @@ class TransactionsModel extends Model
         $transactions = [];
 
         $file = fopen($filePath, 'r');
-
         fgetcsv($file, escape: '');
+
         while (($transaction = fgetcsv($file, escape: '')) !== false) {
             if ($transactionHandler !== null) {
                 $transaction = $transactionHandler($transaction);
@@ -40,8 +40,20 @@ class TransactionsModel extends Model
         ];
     }
 
-    public function writeTransactions()
+    public function writeTransactions(array $transactions): void
     {
+        $sql = "INSERT INTO my_db.transactions (date, check_number, description, amount) 
+                VALUES (:date, :check_number, :description, :amount)";
 
+        $stmt = $this->db->prepare($sql);
+
+        try {
+            foreach ($transactions as $transaction) {
+                $stmt->execute($transaction);
+            }
+            echo "Транзакции успешно добавлены";
+        } catch (PDOException $e) {
+            die("Ошибка запроса: " . $e->getMessage());
+        }
     }
 }

@@ -36,10 +36,6 @@ try {
         new Config($_ENV)
     )->run();
 
-//    echo '<pre>';
-//    var_dump($_FILES);
-//    echo '</pre>';
-
 } catch (RouteNotFoundException $e) {
     echo View::make('/views/error/404');
 }

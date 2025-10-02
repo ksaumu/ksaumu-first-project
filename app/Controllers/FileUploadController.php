@@ -25,8 +25,9 @@ class FileUploadController
 
         $transactions = new TransactionsModel();
 
-        echo '<pre>';
-        var_dump($transactions->readTransactions($filePath, [$transactions, 'transactionHandler']));
-        echo '</pre>';
+        $data = $transactions->readTransactions($filePath, [$transactions, 'transactionHandler']);
+
+        $transactions->writeTransactions($data);
+
     }
 }
