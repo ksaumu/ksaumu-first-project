@@ -24,7 +24,7 @@ services:
       - ./storage/mysql:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_DATABASE:
+      MYSQL_DATABASE: ksaumu_db
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
