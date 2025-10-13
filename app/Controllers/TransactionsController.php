@@ -20,7 +20,7 @@ class TransactionsController
      * 
      * @return View Представление страницы транзакций
      */
-    public function index(): View
+    public function transactions(): View
     {
         return View::make('transactions');
     }

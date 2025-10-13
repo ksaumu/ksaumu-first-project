@@ -193,7 +193,7 @@
 </head>
 <body>
     <div class="upload-container">
-        <form action="/show" method="get" class="top-actions">
+        <form action="/transactions" method="get" class="top-actions">
             <button type="submit" class="icon-btn" aria-label="Показать">
                 <i class="fas fa-eye"></i>
             </button>

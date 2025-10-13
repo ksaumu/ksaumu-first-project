@@ -27,6 +27,7 @@ try {
     /* Регистрация маршрутов */
     $router
         ->get('/', [HomeController::class, 'index'])
+        ->get('/transactions', [TransactionsController::class, 'transactions'])
         ->post('/upload', [FileUploadController::class, 'upload']);
 
     /* Создание и запуск приложения */
