@@ -29,6 +29,7 @@
             text-align: center;
             max-width: 500px;
             width: 90%;
+            position: relative;
         }
 
         .upload-icon {
@@ -99,6 +100,59 @@
             font-size: 24px;
         }
 
+        /* Верхняя правая квадратная кнопка (показ) */
+        .top-actions {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+        }
+
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(90deg, #0057B8 0%, #004495 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0, 87, 184, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0, 87, 184, 0.4);
+        }
+
+        .icon-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 12px rgba(0, 87, 184, 0.3);
+        }
+
+        .icon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .icon-btn:hover::before {
+            left: 100%;
+        }
+
+        .icon-btn i {
+            font-size: 18px;
+        }
+
         /* Скрытый input file */
         #file-input {
             display: none;
@@ -138,21 +192,26 @@
     </style>
 </head>
 <body>
-<form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
     <div class="upload-container">
+        <form action="/show" method="get" class="top-actions">
+            <button type="submit" class="icon-btn" aria-label="Показать">
+                <i class="fas fa-eye"></i>
+            </button>
+        </form>
         <div class="upload-icon">
             <i class="fas fa-cloud-upload-alt"></i>
         </div>
         <h1>Загрузка файла</h1>
         <p>Загрузите файл c транзакциями в формате CVS</p>
 
-        <button type="button" class="upload-btn" id="upload-button">
-            <i class="fas fa-upload"></i> ЗАГРУЗИТЬ ФАЙЛ
-        </button>
+        <form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
+            <button type="button" class="upload-btn" id="upload-button">
+                <i class="fas fa-upload"></i> ЗАГРУЗИТЬ ФАЙЛ
+            </button>
 
-        <input type="file" id="file-input" name="transactions">
+            <input type="file" id="file-input" name="transactions">
+        </form>
     </div>
-</form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
