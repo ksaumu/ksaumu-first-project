@@ -25,6 +25,11 @@ class App
         static::$db = new DB($config->db ?? []);
     }
 
+    /**
+     * Предоставляет общее подключение к базе данных для всего приложения.
+     *
+     * @return DB Инстанс-обертка над PDO
+     */
     public static function db(): DB
     {
         return static::$db;
@@ -32,6 +37,8 @@ class App
 
     /**
      * Запускает приложение, пытаясь разрешить маршрут.
+     *
+     * @return void
      */
     public function run()
     {

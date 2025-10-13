@@ -103,7 +103,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- TODO -->
+                    <?php if (!empty($transactions)): ?>
+                        <?php foreach ($transactions as $transaction): ?>
+                            <tr>
+                                <td><?= $transaction['date'] ?></td>
+                                <td><?= $transaction['check_number'] ?></td>
+                                <td><?= $transaction['description'] ?></td>
+                                <td><?= $transaction['amount'] ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    <?php endif; ?>
                 </tbody>
                 <tfoot>
                     <tr>

@@ -8,6 +8,8 @@ use App\Exceptions\ViewNotFoundException;
 
 /**
  * Класс для работы с представлениями.
+ *
+ * Отвечает за подготовку параметров и безопасный рендер PHP-шаблонов.
  */
 class View
 {
@@ -24,10 +26,11 @@ class View
     }
 
     /**
-     * Метод для создания экземпляра View.
+     * Метод-фабрика для создания экземпляра представления.
      *
-     * @param string $view Путь к файлу шаблона
-     * @param array $params Параметры для передачи в шаблон
+     * @param string $view Путь к файлу шаблона (без расширения)
+     * @param array $params Ассоциативный массив параметров для шаблона
+     * @return static Экземпляр представления
      */
     public static function make(string $view, array $params = []): static
     {
@@ -36,6 +39,9 @@ class View
 
     /**
      * Рендерит шаблон и возвращает результат как строку.
+     *
+     * @return string HTML-содержимое отрендеренного шаблона
+     * @throws ViewNotFoundException Если файл шаблона не найден
      */
     public function render(): string
     {
@@ -56,11 +62,22 @@ class View
         return (string) ob_get_clean();
     }
 
+    /**
+     * Неявный рендер при приведении объекта к строке.
+     *
+     * @return string HTML-содержимое
+     */
     public function __toString(): string
     {
         return $this->render();
     }
 
+    /**
+     * Доступ к переданным в шаблон параметрам как к свойствам.
+     *
+     * @param string $name Имя параметра
+     * @return mixed
+     */
     public function __get(string $name)
     {
         return $this->params[$name] ?? null;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use PDO;
 use PDOException;
 
 /**
@@ -18,7 +19,7 @@ class TransactionsModel extends Model
      * 
      * @param string $filePath Путь к CSV файлу с транзакциями
      * @param callable|null $transactionHandler Обработчик для преобразования данных транзакции
-     * @return array Массив транзакций
+     * @return array<int, array<string, mixed>> Массив транзакций
      * @throws \Exception Если файл не может быть открыт
      */
     public function readTransactions(string $filePath, ?callable $transactionHandler = null): array
@@ -53,8 +54,8 @@ class TransactionsModel extends Model
      * 
      * Преобразует формат даты и очищает сумму от символов валюты.
      * 
-     * @param array $transactions Массив с сырыми данными транзакции [дата, номер_чека, описание, сумма]
-     * @return array Обработанные данные транзакции
+     * @param array{0:string,1:string,2:string,3:string} $transactions Сырые данные [date, check_number, description, amount]
+     * @return array{date:string,check_number:string,description:string,amount:float} Обработанная транзакция
      */
     private function transactionHandler(array $transactions): array
     {
@@ -80,7 +81,7 @@ class TransactionsModel extends Model
      * 
      * Использует подготовленные запросы для безопасной вставки данных.
      * 
-     * @param array $transactions Массив транзакций для записи
+     * @param array<int, array{date:string,check_number:string,description:string,amount:float}> $transactions Транзакции
      * @return void
      * @throws PDOException При ошибке выполнения запроса
      */
@@ -101,6 +102,28 @@ class TransactionsModel extends Model
             echo "Транзакции успешно добавлены";
         } catch (PDOException $e) {
             die("Ошибка запроса: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Возвращает список транзакций, отсортированных по дате по убыванию.
+     *
+     * @return array<int, array{date:string,check_number:string,description:string,amount:float}>
+     * @throws PDOException При ошибке запроса
+     */
+    public function showTransactions(): array
+    {
+        $sql = "SELECT date, check_number, description, amount
+                FROM my_db.transactions
+                ORDER BY date DESC";
+
+        try {
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new PDOException(
+                "Ошибка получения транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
+            );
         }
     }
 }

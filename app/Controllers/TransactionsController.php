@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\TransactionsModel;
 use App\View;
 
 /**
@@ -22,6 +23,9 @@ class TransactionsController
      */
     public function transactions(): View
     {
-        return View::make('transactions');
+        $model = new TransactionsModel();
+        $transactions = $model->showTransactions();
+
+        return View::make('transactions', ['transactions' => $transactions]);
     }
 }
