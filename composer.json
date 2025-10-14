@@ -7,7 +7,11 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/Utils/FormatDate.php",
+            "app/Utils/FormatDollarAmount.php"
+        ]
     },
     "config": {
         "optimize-autoloader": true

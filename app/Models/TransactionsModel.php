@@ -64,9 +64,6 @@ class TransactionsModel extends Model
 
         // Очищаем сумму от запятых и символа доллара, преобразуем в число
         $amount = (float) str_replace([',', '$'], '', $amount);
-        
-        // Преобразуем дату в читаемый формат
-        $date = date('M j, Y', strtotime($date));
 
         return [
             'date' => $date,
@@ -106,7 +103,7 @@ class TransactionsModel extends Model
     }
 
     /**
-     * Возвращает список транзакций, отсортированных по дате по убыванию.
+     * Возвращает список транзакций.
      *
      * @return array<int, array{date:string,check_number:string,description:string,amount:float}>
      * @throws PDOException При ошибке запроса
@@ -126,6 +123,12 @@ class TransactionsModel extends Model
         }
     }
 
+    /**
+     * Возвращает агрегированные суммы доходов, расходов и чистого итога.
+     *
+     * @return array{totalIncome:float,totalExpense:float,totalNet:float}
+     * @throws PDOException При ошибке получения сумм транзакций
+     */
     public function getTotals(): array
     {
         $sqlIncome = "SELECT SUM(amount)

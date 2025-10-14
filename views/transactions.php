@@ -1,3 +1,7 @@
+<?php
+use function App\Utils\formatDate;
+use function App\Utils\formatDollarAmount;
+?>
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -106,10 +110,10 @@
                     <?php if (!empty($transactions)): ?>
                         <?php foreach ($transactions as $transaction): ?>
                             <tr>
-                                <td><?= $transaction['date'] ?></td>
+                                <td><?= formatDate($transaction['date']) ?></td>
                                 <td><?= $transaction['check_number'] ?></td>
                                 <td><?= $transaction['description'] ?></td>
-                                <td><?= $transaction['amount'] ?></td>
+                                <td><?= formatDollarAmount($transaction['amount']) ?></td>
                             </tr>
                         <?php endforeach ?>
                     <?php endif; ?>
@@ -118,15 +122,15 @@
                     <?php if (!empty($totals)): ?>
                         <tr>
                             <th colspan="3">Total Income:</th>
-                            <td><?= $totals['totalIncome'] ?></td>
+                            <td><?= formatDollarAmount($totals['totalIncome']) ?></td>
                         </tr>
                         <tr>
                             <th colspan="3">Total Expense:</th>
-                            <td><?= $totals['totalExpense'] ?></td>
+                            <td><?= formatDollarAmount($totals['totalExpense']) ?></td>
                         </tr>
                         <tr>
                             <th colspan="3">Net Total:</th>
-                            <td><?= $totals['totalNet'] ?></td>
+                            <td><?= formatDollarAmount($totals['totalNet']) ?></td>
                         </tr>
                     <?php endif; ?>
                 </tfoot>
