@@ -115,18 +115,20 @@
                     <?php endif; ?>
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <th colspan="3">Total Income:</th>
-                        <td><!-- TODO --></td>
-                    </tr>
-                    <tr>
-                        <th colspan="3">Total Expense:</th>
-                        <td><!-- TODO --></td>
-                    </tr>
-                    <tr>
-                        <th colspan="3">Net Total:</th>
-                        <td><!-- TODO --></td>
-                    </tr>
+                    <?php if (!empty($totals)): ?>
+                        <tr>
+                            <th colspan="3">Total Income:</th>
+                            <td><?= $totals['totalIncome'] ?></td>
+                        </tr>
+                        <tr>
+                            <th colspan="3">Total Expense:</th>
+                            <td><?= $totals['totalExpense'] ?></td>
+                        </tr>
+                        <tr>
+                            <th colspan="3">Net Total:</th>
+                            <td><?= $totals['totalNet'] ?></td>
+                        </tr>
+                    <?php endif; ?>
                 </tfoot>
             </table>
         </div>

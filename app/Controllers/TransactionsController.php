@@ -25,7 +25,8 @@ class TransactionsController
     {
         $model = new TransactionsModel();
         $transactions = $model->showTransactions();
+        $totals = $model->getTotals();
 
-        return View::make('transactions', ['transactions' => $transactions]);
+        return View::make('transactions', ['transactions' => $transactions, 'totals' => $totals]);
     }
 }

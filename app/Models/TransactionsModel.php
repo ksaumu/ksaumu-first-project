@@ -114,8 +114,7 @@ class TransactionsModel extends Model
     public function showTransactions(): array
     {
         $sql = "SELECT date, check_number, description, amount
-                FROM my_db.transactions
-                ORDER BY date DESC";
+                FROM my_db.transactions";
 
         try {
             $stmt = $this->db->query($sql);
@@ -125,5 +124,33 @@ class TransactionsModel extends Model
                 "Ошибка получения транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
             );
         }
+    }
+
+    public function getTotals(): array
+    {
+        $sqlIncome = "SELECT SUM(amount)
+                      FROM my_db.transactions
+                      WHERE amount > 0";
+
+        $sqlExpense = "SELECT SUM(amount)
+                       FROM my_db.transactions
+                       WHERE amount < 0";
+
+        try {
+            $totalIncome = (float) $this->db->query($sqlIncome)->fetchColumn();
+            $totalExpense = (float) $this->db->query($sqlExpense)->fetchColumn();
+            $totalNet = $totalIncome + $totalExpense;
+
+            return [
+                'totalIncome' => $totalIncome,
+                'totalExpense' => $totalExpense,
+                'totalNet' => $totalNet
+            ];
+        } catch (PDOException $e) {
+            throw new PDOException(
+                "Ошибка получения сумм транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
+            );
+        }
+
     }
 }
