@@ -110,8 +110,7 @@ class TransactionsModel extends Model
      */
     public function showTransactions(): array
     {
-        $sql = "SELECT date, check_number, description, amount
-                FROM my_db.transactions";
+        $sql = "SELECT * FROM my_db.transactions";
 
         try {
             $stmt = $this->db->query($sql);
@@ -154,6 +153,11 @@ class TransactionsModel extends Model
                 "Ошибка получения сумм транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
             );
         }
+
+    }
+
+    public function addTransaction(array $transaction): void
+    {
 
     }
 }
