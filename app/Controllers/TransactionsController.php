@@ -7,6 +7,8 @@ namespace App\Controllers;
 use App\Models\TransactionsModel;
 use App\View;
 
+use function App\Utils\redirect;
+
 /**
  * Контроллер для работы с транзакциями.
  * 
@@ -24,6 +26,16 @@ class TransactionsController
     public function transactions(): View
     {
         $model = new TransactionsModel();
+        $transactions = $model->showTransactions();
+        $totals = $model->getTotals();
+
+        return View::make('transactions', ['transactions' => $transactions, 'totals' => $totals]);
+    }
+    public function addTransaction(): View
+    {
+        $model = new TransactionsModel();
+        $model->writeTransaction($_POST);
+
         $transactions = $model->showTransactions();
         $totals = $model->getTotals();
 

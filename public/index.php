@@ -34,7 +34,8 @@ try {
     $router
         ->get('/', [HomeController::class, 'index'])
         ->get('/transactions', [TransactionsController::class, 'transactions'])
-        ->post('/upload', [FileUploadController::class, 'upload']);
+        ->post('/addTransaction', [TransactionsController::class, 'addTransaction'])
+        ->post('/upload', [HomeController::class, 'upload']);
 
     /* Создание и запуск приложения */
     new App(

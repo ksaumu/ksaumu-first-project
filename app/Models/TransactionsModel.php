@@ -7,6 +7,8 @@ namespace App\Models;
 use PDO;
 use PDOException;
 
+use function App\Utils\redirect;
+
 /**
  * Модель для работы с транзакциями.
  * 
@@ -82,7 +84,7 @@ class TransactionsModel extends Model
      * @return void
      * @throws PDOException При ошибке выполнения запроса
      */
-    public function writeTransactions(array $transactions): void
+    public function writeTransaction(array $transaction): void
     {
         // SQL запрос для вставки транзакций
         $sql = "INSERT INTO my_db.transactions (date, check_number, description, amount)
@@ -92,11 +94,7 @@ class TransactionsModel extends Model
         $stmt = $this->db->prepare($sql);
 
         try {
-            // Выполняем вставку для каждой транзакции
-            foreach ($transactions as $transaction) {
-                $stmt->execute($transaction);
-            }
-            echo "Транзакции успешно добавлены";
+            $stmt->execute($transaction);
         } catch (PDOException $e) {
             die("Ошибка запроса: " . $e->getMessage());
         }
@@ -153,11 +151,6 @@ class TransactionsModel extends Model
                 "Ошибка получения сумм транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
             );
         }
-
-    }
-
-    public function addTransaction(array $transaction): void
-    {
 
     }
 }

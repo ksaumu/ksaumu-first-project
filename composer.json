@@ -10,7 +10,8 @@
         },
         "files": [
             "app/Utils/FormatDate.php",
-            "app/Utils/FormatDollarAmount.php"
+            "app/Utils/FormatDollarAmount.php",
+            "app/Utils/Redirect.php"
         ]
     },
     "config": {

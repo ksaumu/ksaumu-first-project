@@ -289,7 +289,7 @@ use function App\Utils\formatDollarAmount;
                         <h2>Новая транзакция</h2>
                         <button type="button" class="modal-close" aria-label="Закрыть">×</button>
                     </div>
-                    <form action="/transactions" method="post" class="modal-form">
+                    <form action="/addTransaction" method="post" class="modal-form">
                         <div class="form-row">
                             <label>
                                 Дата
