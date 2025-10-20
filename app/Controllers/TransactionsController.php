@@ -31,13 +31,18 @@ class TransactionsController
 
         return View::make('transactions', ['transactions' => $transactions, 'totals' => $totals]);
     }
-    public function addTransaction(): void
+    public function addButton(): void
     {
         $model = new TransactionsModel();
         $model->writeTransaction($_POST);
 
-        $transactions = $model->showTransactions();
-        $totals = $model->getTotals();
+        redirect('/transactions');
+    }
+
+    public function editButton(): void
+    {
+        $modal = new TransactionsModel();
+        $modal->editTransactions($_POST);
 
         redirect('/transactions');
     }

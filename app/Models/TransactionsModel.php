@@ -153,4 +153,20 @@ class TransactionsModel extends Model
         }
 
     }
+
+    public function editTransactions(array $transaction): void
+    {
+        $sql = "UPDATE my_db.transactions
+                SET date = :date, check_number = :check_number, description = :description, amount = :amount
+                WHERE id = :id";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($transaction);
+        } catch (PDOException $e) {
+            throw new PDOException(
+                "Ошибка редактирования транзакции: " . $e->getMessage(), (int) $e->getCode(), $e
+            );
+        }
+    }
 }

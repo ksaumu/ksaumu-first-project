@@ -34,7 +34,8 @@ try {
     $router
         ->get('/', [HomeController::class, 'index'])
         ->get('/transactions', [TransactionsController::class, 'transactions'])
-        ->post('/addTransaction', [TransactionsController::class, 'addTransaction'])
+        ->post('/addButton', [TransactionsController::class, 'addButton'])
+        ->post('/editButton', [TransactionsController::class, 'editButton'])
         ->post('/upload', [HomeController::class, 'upload']);
 
     /* Создание и запуск приложения */
