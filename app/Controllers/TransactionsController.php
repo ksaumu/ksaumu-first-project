@@ -31,7 +31,7 @@ class TransactionsController
 
         return View::make('transactions', ['transactions' => $transactions, 'totals' => $totals]);
     }
-    public function addTransaction(): View
+    public function addTransaction(): void
     {
         $model = new TransactionsModel();
         $model->writeTransaction($_POST);
@@ -39,6 +39,6 @@ class TransactionsController
         $transactions = $model->showTransactions();
         $totals = $model->getTotals();
 
-        return View::make('transactions', ['transactions' => $transactions, 'totals' => $totals]);
+        redirect('/transactions');
     }
 }

@@ -293,7 +293,7 @@ use function App\Utils\formatDollarAmount;
                         <div class="form-row">
                             <label>
                                 Дата
-                                <input type="date" name="date" required>
+                                <input type="date" name="date" value="<?= date('Y-m-d') ?>" required>
                             </label>
                             <label>
                                 Чек #
