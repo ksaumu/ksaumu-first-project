@@ -11,14 +11,14 @@ use function App\Utils\redirect;
 
 /**
  * Модель для работы с транзакциями.
- * 
+ *
  * Обеспечивает чтение транзакций из CSV файлов и запись их в базу данных.
  */
 class TransactionsModel extends Model
 {
     /**
      * Читает транзакции из CSV файла.
-     * 
+     *
      * @param string $filePath Путь к CSV файлу с транзакциями
      * @param callable|null $transactionHandler Обработчик для преобразования данных транзакции
      * @return array<int, array<string, mixed>> Массив транзакций
@@ -53,9 +53,9 @@ class TransactionsModel extends Model
 
     /**
      * Обрабатывает сырые данные транзакции из CSV.
-     * 
+     *
      * Преобразует формат даты и очищает сумму от символов валюты.
-     * 
+     *
      * @param array{0:string,1:string,2:string,3:string} $transactions Сырые данные [date, check_number, description, amount]
      * @return array{date:string,check_number:string,description:string,amount:float} Обработанная транзакция
      */
@@ -77,9 +77,9 @@ class TransactionsModel extends Model
 
     /**
      * Записывает транзакции в базу данных.
-     * 
+     *
      * Использует подготовленные запросы для безопасной вставки данных.
-     * 
+     *
      * @param array<int, array{date:string,check_number:string,description:string,amount:float}> $transactions Транзакции
      * @return void
      * @throws PDOException При ошибке выполнения запроса
@@ -87,7 +87,7 @@ class TransactionsModel extends Model
     public function writeTransaction(array $transaction): void
     {
         // SQL запрос для вставки транзакций
-        $sql = "INSERT INTO my_db.transactions (date, check_number, description, amount)
+        $sql = "INSERT INTO ksaumu_db.transactions (date, check_number, description, amount)
                 VALUES (:date, :check_number, :description, :amount)";
 
         // Подготавливаем запрос
@@ -108,7 +108,7 @@ class TransactionsModel extends Model
      */
     public function showTransactions(): array
     {
-        $sql = "SELECT * FROM my_db.transactions";
+        $sql = "SELECT * FROM ksaumu_db.transactions";
 
         try {
             $stmt = $this->db->query($sql);
@@ -129,11 +129,11 @@ class TransactionsModel extends Model
     public function getTotals(): array
     {
         $sqlIncome = "SELECT SUM(amount)
-                      FROM my_db.transactions
+                      FROM ksaumu_db.transactions
                       WHERE amount > 0";
 
         $sqlExpense = "SELECT SUM(amount)
-                       FROM my_db.transactions
+                       FROM ksaumu_db.transactions
                        WHERE amount < 0";
 
         try {
@@ -156,7 +156,7 @@ class TransactionsModel extends Model
 
     public function editTransactions(array $transaction): void
     {
-        $sql = "UPDATE my_db.transactions
+        $sql = "UPDATE ksaumu_db.transactions
                 SET date = :date, check_number = :check_number, description = :description, amount = :amount
                 WHERE id = :id";
 
