@@ -31,6 +31,14 @@ class TransactionsController
 
         return View::make('transactions', ['transactions' => $transactions, 'totals' => $totals]);
     }
+
+    /**
+     * Добавляет новую транзакцию.
+     *
+     * Получает данные из POST-запроса, записывает их в базу данных и перенаправляет пользователя на страницу транзакций.
+     *
+     * @return void
+     */
     public function addButton(): void
     {
         $model = new TransactionsModel();
@@ -39,6 +47,13 @@ class TransactionsController
         redirect('/transactions');
     }
 
+    /**
+     * Редактирует существующую транзакцию.
+     *
+     * Получает данные из POST-запроса, обновляет запись в базе данных и перенаправляет пользователя на страницу транзакций.
+     *
+     * @return void
+     */
     public function editButton(): void
     {
         $modal = new TransactionsModel();

@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace App\Exceptions;
 
 /**
- * Исключение: маршрут не найден (HTTP 404).
+ * Исключение, выбрасываемое, когда маршрут не найден.
  */
 class RouteNotFoundException extends \Exception
 {

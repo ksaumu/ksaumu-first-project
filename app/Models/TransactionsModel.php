@@ -154,6 +154,13 @@ class TransactionsModel extends Model
 
     }
 
+    /**
+     * Редактирует транзакцию в базе данных.
+     *
+     * @param array $transaction Данные транзакции для обновления.
+     * @return void
+     * @throws PDOException При ошибке редактирования транзакции.
+     */
     public function editTransactions(array $transaction): void
     {
         $sql = "UPDATE ksaumu_db.transactions
