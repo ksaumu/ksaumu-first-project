@@ -13,7 +13,6 @@ use App\View;
 use App\Config;
 use App\Controllers\TransactionsController;
 use App\Controllers\HomeController;
-use App\Controllers\FileUploadController;
 use App\Router;
 use App\Exceptions\RouteNotFoundException;
 
