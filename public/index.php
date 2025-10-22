@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Точка входа веб-приложения.
  *
@@ -6,7 +7,7 @@
  * регистрацию маршрутов и запуск приложения.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use App\App;
 use App\View;
@@ -47,4 +48,3 @@ try {
 } catch (RouteNotFoundException $e) {
     echo View::make('/views/error/404');
 }
-

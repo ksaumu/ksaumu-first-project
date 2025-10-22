@@ -1,6 +1,7 @@
 <?php
 use function App\Utils\formatDate;
 use function App\Utils\formatDollarAmount;
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">

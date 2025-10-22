@@ -115,7 +115,9 @@ class TransactionsModel extends Model
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new PDOException(
-                "Ошибка получения транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
+                "Ошибка получения транзакций: " . $e->getMessage(),
+                (int) $e->getCode(),
+                $e
             );
         }
     }
@@ -148,7 +150,9 @@ class TransactionsModel extends Model
             ];
         } catch (PDOException $e) {
             throw new PDOException(
-                "Ошибка получения сумм транзакций: " . $e->getMessage(), (int) $e->getCode(), $e
+                "Ошибка получения сумм транзакций: " . $e->getMessage(),
+                (int) $e->getCode(),
+                $e
             );
         }
 
@@ -172,7 +176,9 @@ class TransactionsModel extends Model
             $stmt->execute($transaction);
         } catch (PDOException $e) {
             throw new PDOException(
-                "Ошибка редактирования транзакции: " . $e->getMessage(), (int) $e->getCode(), $e
+                "Ошибка редактирования транзакции: " . $e->getMessage(),
+                (int) $e->getCode(),
+                $e
             );
         }
     }
