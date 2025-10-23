@@ -182,4 +182,28 @@ class TransactionsModel extends Model
             );
         }
     }
+
+    /**
+     * Удаляет транзакцию из базы данных.
+     *
+     * @param array $transaction Данные транзакции для удаления (должен содержать 'id').
+     * @return void
+     * @throws PDOException При ошибке удаления транзакции.
+     */
+    public function deleteTransaction(array $transaction): void
+    {
+        $sql = "DELETE FROM ksaumu_db.transactions 
+                WHERE id = :id";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($transaction);
+        } catch (PDOException $e) {
+            throw new PDOException(
+                "Ошибка удаления транзакции: " . $e->getMessage(),
+                (int) $e->getCode(),
+                $e
+            );
+        }
+    }
 }

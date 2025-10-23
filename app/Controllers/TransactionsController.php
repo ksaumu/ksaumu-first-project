@@ -61,4 +61,19 @@ class TransactionsController
 
         redirect('/transactions');
     }
+
+    /**
+     * Удаляет существующую транзакцию.
+     *
+     * Получает ID транзакции из POST-запроса, удаляет запись из базы данных и перенаправляет пользователя на страницу транзакций.
+     *
+     * @return void
+     */
+    public function deleteButton(): void
+    {
+        $modal = new TransactionsModel();
+        $modal->deleteTransaction($_POST);
+
+        redirect('/transactions');
+    }
 }

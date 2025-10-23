@@ -36,6 +36,7 @@ try {
         ->get('/transactions', [TransactionsController::class, 'transactions'])
         ->post('/addButton', [TransactionsController::class, 'addButton'])
         ->post('/editButton', [TransactionsController::class, 'editButton'])
+        ->post('/deleteButton', [TransactionsController::class, 'deleteButton'])
         ->post('/upload', [HomeController::class, 'upload']);
 
     /* Создание и запуск приложения */
