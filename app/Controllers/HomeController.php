@@ -6,8 +6,7 @@ namespace App\Controllers;
 
 use App\Models\TransactionsModel;
 use App\View;
-
-use function App\Utils\redirect;
+use Exception;
 
 /**
  * Контроллер для обработки запросов главной страницы.
@@ -36,8 +35,8 @@ class HomeController
      * 2. Читает транзакции из CSV файла
      * 3. Записывает транзакции в базу данных
      *
-     * @return void
-     * @throws \Exception При ошибке обработки файла
+     * @return View
+     * @throws Exception
      */
     public function upload(): View
     {
@@ -46,7 +45,7 @@ class HomeController
 
         // Перемещаем загруженный файл во временную директорию
         if (!move_uploaded_file($_FILES['transactions']['tmp_name'], $filePath)) {
-            throw new \Exception('Ошибка при сохранении загруженного файла');
+            throw new Exception('Ошибка при сохранении загруженного файла');
         }
 
         // Создаем экземпляр модели для работы с транзакциями
